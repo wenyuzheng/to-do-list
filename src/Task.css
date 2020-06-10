@@ -1,0 +1,12 @@
+.task {
+    display: flex;
+}
+
+.text {
+    font-size: 20px;
+    margin: auto 10px;
+}
+
+.checkbox {
+    margin: auto 10px;
+}

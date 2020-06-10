@@ -4,7 +4,7 @@ import Task from './Task';
 
 const App = () => {
 
-  const tasks = [];
+  const tasks = ["abc"];
 
   const[userInput, setUserInput] = useState(null);
   const[completed, setCompleted] = useState(false);
@@ -12,10 +12,12 @@ const App = () => {
   const addTasksHandler = () => {
     setUserInput(document.getElementById("userInput").value);
     tasks.push(userInput);
+    console.log(tasks);
   }
 
   const deleteTasksHandler = () => {
-    console.log("delete")
+    // get id of the task
+    // remove that task
   }
 
   const markAsCompleteHandler = () => {
@@ -57,11 +59,19 @@ const App = () => {
           })}
       </div>
 
-      <div>
-        <div>Display:</div>
-        <button onClick={displayAllHandler}>All</button>
-        <button onClick={displayIncompleteHandler}>Incomplete</button>
-        <button onClick={displayCompletedHandler}>Completed</button>
+      <div className="displayDiv">
+        <div>
+          <p> Display:</p>
+        </div>
+        <div>
+          <button onClick={displayAllHandler}>All</button>
+        </div>
+        <div>
+          <button onClick={displayIncompleteHandler}>Incomplete</button>
+        </div>
+        <div>
+          <button onClick={displayCompletedHandler}>Completed</button>
+        </div>
       </div>
 
     </div>
