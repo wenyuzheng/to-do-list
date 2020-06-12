@@ -4,7 +4,7 @@ import Task from './Task';
 
 const App = () => {
 
-  const tasks = ["abc"];
+  const tasks = [];
 
   const[userInput, setUserInput] = useState(null);
   const[completed, setCompleted] = useState(false);
