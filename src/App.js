@@ -1,6 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import './App.css';
+import Header from './Header';
 import Task from './Task';
+import Display from './Display';
+
+// class App extends Component {
+//   state = {
+//     tasks: []
+//   }
+
+//     addTasksHandler = () => {
+//     setUserInput(document.getElementById("userInput").value);
+//     tasks.push(userInput);
+//     console.log(tasks);
+//   }
+
+//   render() {
+
+//     return (
+//       <div className="App">
+//         <div className="Header">
+//           <h1>To Do List</h1>
+
+//           <div>
+//             <input type="text" id="userInput" placeholder="Enter task" />
+//             <button onClick={addTasksHandler}>Add Tasks</button>
+//           </div>
+//         </div>
+
+//       </div>
+//     )
+//   }
+// }
+
+// export default App;
+
 
 const App = () => {
 
@@ -11,7 +45,11 @@ const App = () => {
 
   const addTasksHandler = () => {
     setUserInput(document.getElementById("userInput").value);
-    tasks.push(userInput);
+    if (userInput === null || userInput === "") {
+      alert("Please enter your task");
+    } else {
+      tasks.push(userInput);
+    }
     console.log(tasks);
   }
 
@@ -22,6 +60,16 @@ const App = () => {
 
   const markAsCompleteHandler = () => {
     setCompleted(true);
+  }
+
+  const displayHandler = (name) => {
+    if (name === "Completed") {
+
+    } else if (name === "Incomplete") {
+
+    } else {
+
+    }
   }
 
   const displayAllHandler = () => {
@@ -38,12 +86,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>To Do List</h1>
-
-      <div>
-        <input type="text" id="userInput"/>
-        <button onClick={addTasksHandler}>Add Tasks</button>
-      </div>
+      <Header handler={addTasksHandler}/>
     
       <div>
         {tasks.map((content) => {
@@ -51,7 +94,8 @@ const App = () => {
             content,
             "key": content,
             deleteTasksHandler,
-            markAsCompleteHandler
+            markAsCompleteHandler,
+            completed
           }
           return(
             <Task {...taskProps}/>
@@ -59,20 +103,7 @@ const App = () => {
           })}
       </div>
 
-      <div className="displayDiv">
-        <div>
-          <p> Display:</p>
-        </div>
-        <div>
-          <button onClick={displayAllHandler}>All</button>
-        </div>
-        <div>
-          <button onClick={displayIncompleteHandler}>Incomplete</button>
-        </div>
-        <div>
-          <button onClick={displayCompletedHandler}>Completed</button>
-        </div>
-      </div>
+      <Display/>
 
     </div>
   );

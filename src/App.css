@@ -8,10 +8,6 @@ button {
   border-radius: 5px;
 }
 
-.displayDiv {
-  display: inline-flex;
-}
-
 #userInput
 {
   height: 20px;

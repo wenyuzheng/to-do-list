@@ -1,0 +1,15 @@
+.outerDisplayDiv {
+  background-color: #4ec5a5;
+  width: 600px;
+  margin: auto;
+}
+
+.innerDisplayDiv {
+  display: inline-flex;
+  margin: auto;
+}
+
+p {
+  color: white;
+  font-weight: 700;
+}
