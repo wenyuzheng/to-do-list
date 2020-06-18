@@ -20,7 +20,7 @@ const Display = (props) => {
 
     const displayHandler = (name) => {
         props.setCurrDisplaying(name);
-        console.log(props.c)
+        console.log(props.currDisplaying)
     }
 
     return (

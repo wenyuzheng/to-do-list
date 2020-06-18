@@ -4,13 +4,22 @@ import './Header.css';
 const Header = (props) => {
 
     const addTasksHandler = () => {
-        props.setUserInput(props.userInput);
+        // let newTaskList = [...props.taskList];
+        // let text = props.userInput;
+        // const task = {
+        //     title: text,
+        //     isComplete: false
+        // }
+        // newTaskList.push(task);
+        // props.setTaskList(newTaskList);
+
+        let text = props.userInput;
         const task = {
-            title: props.userInput,
+            title: text,
             isComplete: false
         }
-        const newTaskList = [...props.taskList];
-        props.setTaskList(newTaskList.push(task));
+        let newTaskList = [...props.taskList, task];
+        props.setTaskList(newTaskList);
     }
 
     return (
@@ -19,7 +28,7 @@ const Header = (props) => {
 
             <div>
                 <input type="text" id="userInput" placeholder="Enter task" onChange={props.userInput}/>
-                <button onClick={addTasksHandler}> Add Task </button>
+                <button onClick={addTasksHandler} className="addButton"> Add Task </button>
             </div>
         </div>
     )

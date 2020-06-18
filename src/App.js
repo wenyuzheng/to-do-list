@@ -10,21 +10,16 @@ const App = () => {
     {
       title: "Do work",
       isComplete: false
+    },
+    {
+      title: "Hiiiiiiiiiiiiiiiiiiiii  kkkkkkkk kkkk",
+      isComplete: false
     }
   ]
 
   const [taskList, setTaskList] = useState(tasks);
   const [userInput, setUserInput] = useState(null);
   const [currDisplaying, setCurrDisplaying] = useState("All");
-
-  // const addTasksHandler = () => {
-  //   setUserInput(document.getElementById("userInput").value);
-  //   if (userInput === null || userInput === "") {
-  //     alert("Please enter your task");
-  //   } else {
-  //     tasks.push(userInput);
-  //   }
-  // }
 
   const deleteTasksHandler = () => {
     // get id of the task
@@ -50,14 +45,19 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header setUserInput={setUserInput} setTaskList={setTaskList} userInput={userInput}/>
+      <Header taskList={taskList} setTaskList={setTaskList} userInput={userInput}/>
     
       <div>
         {taskList.map((task) => {
           const completed = task.isComplete ? "line-through" : "";
-          const style = { textDecorationLine: completed, fontSize: "20px"};
+          const style = { textDecorationLine: completed};
 
-          return <div onClick={() => toggleCompletionHandler(task, setTaskList)} style={style} key={Date.now()}> {task.title} </div>
+          return (
+            <div className="taskList">
+              <div onClick={() => toggleCompletionHandler(task, setTaskList)} style={style} className="text" key={Date.now()}> {task.title} </div>
+              {/* <button >delete</button> */}
+            </div>
+          )
 
           if (currDisplaying === "Incomplete" && !task.isComplete) {
             
@@ -69,7 +69,7 @@ const App = () => {
         })}
       </div>
 
-      <Display setCurrDisplaying={setCurrDisplaying} c={currDisplaying}/>
+      <Display setCurrDisplaying={setCurrDisplaying} currDisplaying={currDisplaying}/>
 
     </div>
   );
