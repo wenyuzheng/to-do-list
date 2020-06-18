@@ -4,106 +4,72 @@ import Header from './Header';
 import Task from './Task';
 import Display from './Display';
 
-// class App extends Component {
-//   state = {
-//     tasks: []
-//   }
-
-//     addTasksHandler = () => {
-//     setUserInput(document.getElementById("userInput").value);
-//     tasks.push(userInput);
-//     console.log(tasks);
-//   }
-
-//   render() {
-
-//     return (
-//       <div className="App">
-//         <div className="Header">
-//           <h1>To Do List</h1>
-
-//           <div>
-//             <input type="text" id="userInput" placeholder="Enter task" />
-//             <button onClick={addTasksHandler}>Add Tasks</button>
-//           </div>
-//         </div>
-
-//       </div>
-//     )
-//   }
-// }
-
-// export default App;
-
-
 const App = () => {
 
-  const tasks = [];
-
-  const[userInput, setUserInput] = useState(null);
-  const[completed, setCompleted] = useState(false);
-
-  const addTasksHandler = () => {
-    setUserInput(document.getElementById("userInput").value);
-    if (userInput === null || userInput === "") {
-      alert("Please enter your task");
-    } else {
-      tasks.push(userInput);
+  let tasks = [
+    {
+      title: "Do work",
+      isComplete: false
     }
-    console.log(tasks);
-  }
+  ]
+
+  const [taskList, setTaskList] = useState(tasks);
+  const [userInput, setUserInput] = useState(null);
+  const [currDisplaying, setCurrDisplaying] = useState("All");
+
+  // const addTasksHandler = () => {
+  //   setUserInput(document.getElementById("userInput").value);
+  //   if (userInput === null || userInput === "") {
+  //     alert("Please enter your task");
+  //   } else {
+  //     tasks.push(userInput);
+  //   }
+  // }
 
   const deleteTasksHandler = () => {
     // get id of the task
     // remove that task
   }
 
-  const markAsCompleteHandler = () => {
-    setCompleted(true);
-  }
-
-  const displayHandler = (name) => {
-    if (name === "Completed") {
-
-    } else if (name === "Incomplete") {
-
-    } else {
-
-    }
-  }
-
-  const displayAllHandler = () => {
-
-  }
-
-  const displayIncompleteHandler = () => {
-
-  }
-
-  const displayCompletedHandler = () => {
-    
+  const toggleCompletionHandler = (task, setTaskList) => {
+    setTaskList((currTaskList) => {
+      let newTaskList = [];
+      currTaskList.forEach((currTask) => {
+        let newTask = {};
+        newTask.title = currTask.title;
+        if (task.title === currTask.title) {
+          newTask.isComplete = !task.isComplete;
+        } else {
+          newTask.isComplete = currTask.isComplete;
+        }
+        newTaskList.push(newTask);
+      });
+      return newTaskList;
+    });
   }
 
   return (
     <div className="App">
-      <Header handler={addTasksHandler}/>
+      <Header setUserInput={setUserInput} setTaskList={setTaskList} userInput={userInput}/>
     
       <div>
-        {tasks.map((content) => {
-          const taskProps = {
-            content,
-            "key": content,
-            deleteTasksHandler,
-            markAsCompleteHandler,
-            completed
+        {taskList.map((task) => {
+          const completed = task.isComplete ? "line-through" : "";
+          const style = { textDecorationLine: completed, fontSize: "20px"};
+
+          return <div onClick={() => toggleCompletionHandler(task, setTaskList)} style={style} key={Date.now()}> {task.title} </div>
+
+          if (currDisplaying === "Incomplete" && !task.isComplete) {
+            
+          } else if (currDisplaying === "Completed" && task.isComplete) {
+
+          } else {
+
           }
-          return(
-            <Task {...taskProps}/>
-          )
-          })}
+        })}
       </div>
 
-      <Display/>
+      <Display setCurrDisplaying={setCurrDisplaying} c={currDisplaying}/>
 
     </div>
   );
