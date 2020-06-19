@@ -10,7 +10,12 @@ h1 {
     margin: 15px 0;
     border-radius: 0%;
     height: 27px;
-    /* background-color: #b399dd; */
+    background-color: #fae29c;
+}
+
+.addButton:hover {
+    background-color: #e7c27d;
+    color: white;
 }
 
 #userInput

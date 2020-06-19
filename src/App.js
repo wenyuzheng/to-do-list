@@ -45,17 +45,17 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header taskList={taskList} setTaskList={setTaskList} userInput={userInput}/>
+      <Header taskList={taskList} setTaskList={setTaskList} userInput={userInput} setUserInput={setUserInput}/>
     
       <div>
-        {taskList.map((task) => {
+        {taskList.map((task, index) => {
           const completed = task.isComplete ? "line-through" : "";
           const style = { textDecorationLine: completed};
 
           return (
             <div className="taskList">
-              <div onClick={() => toggleCompletionHandler(task, setTaskList)} style={style} className="text" key={Date.now()}> {task.title} </div>
-              {/* <button >delete</button> */}
+              <div onClick={() => toggleCompletionHandler(task, setTaskList)} style={style} className="text" key={Date.now()}> {(index+1) + ". " + task.title} </div>
+              <button >delete</button>
             </div>
           )
 
@@ -76,3 +76,12 @@ const App = () => {
 }
 
 export default App;
+
+
+// Work to be done:
+// 1. delete button function
+// 2. delete button layout
+// 3. set currDisplaying 
+// 4. display all/incomplete/completed
+// 5. display buttons background color changed if clicked
+// 6. firebase

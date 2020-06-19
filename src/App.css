@@ -16,14 +16,13 @@ button:hover {
 }
 
 .taskList {
-  margin: auto;
   text-align: left;
   /* display: inline-flex; */
 }
 
 .text {
   border: 1px lightgrey solid;
-  font-size: 10px;
+  font-size: 20px;
   padding: 5px 30px;
 }
 

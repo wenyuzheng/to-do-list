@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }from 'react';
 import './Display.css';
 
 const Display = (props) => {
@@ -18,10 +18,16 @@ const Display = (props) => {
     //     console.log(props.c)
     // }
 
+    const [clicked, setClicked] = useState(false);
+
     const displayHandler = (name) => {
         props.setCurrDisplaying(name);
+        setClicked(true);
         console.log(props.currDisplaying)
     }
+
+    // const backgroundColor = clicked ? "fae29c" : "white";
+    // const style = { backgroundColor };
 
     return (
         <div className="outerDisplayDiv">
@@ -30,13 +36,13 @@ const Display = (props) => {
                     <p> Display:</p>
                 </div>
                 <div>
-                    <button onClick={() => displayHandler("All")}>All</button>
+                    <button onClick={() => displayHandler("All")} >All</button>
                 </div>
                 <div>
-                    <button onClick={() => displayHandler("Incomplete")}>Incomplete</button>
+                    <button onClick={() => displayHandler("Incomplete")} >Incomplete</button>
                 </div>
                 <div>
-                    <button onClick={() => displayHandler("Completed")}>Completed</button>
+                    <button onClick={() => displayHandler("Completed")} >Completed</button>
                 </div>
             </div>
         </div>
