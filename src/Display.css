@@ -11,3 +11,15 @@ p {
   color: white;
   font-weight: 700;
 }
+
+
+button {
+  margin: 15px 10px;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #fae29e;
+  color: black;
+}

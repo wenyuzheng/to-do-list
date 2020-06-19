@@ -13,35 +13,13 @@ const App = () => {
     },
     {
       title: "Hiiiiiiiiiiiiiiiiiiiii  kkkkkkkk kkkk",
-      isComplete: false
+      isComplete: true
     }
   ]
 
   const [taskList, setTaskList] = useState(tasks);
   const [userInput, setUserInput] = useState(null);
-  const [currDisplaying, setCurrDisplaying] = useState("All");
-
-  const deleteTasksHandler = () => {
-    // get id of the task
-    // remove that task
-  }
-
-  const toggleCompletionHandler = (task, setTaskList) => {
-    setTaskList((currTaskList) => {
-      let newTaskList = [];
-      currTaskList.forEach((currTask) => {
-        let newTask = {};
-        newTask.title = currTask.title;
-        if (task.title === currTask.title) {
-          newTask.isComplete = !task.isComplete;
-        } else {
-          newTask.isComplete = currTask.isComplete;
-        }
-        newTaskList.push(newTask);
-      });
-      return newTaskList;
-    });
-  }
+  const [currentlyShowing, setCurrentlyShowing] = useState("All");
 
   return (
     <div className="App">
@@ -49,28 +27,29 @@ const App = () => {
     
       <div>
         {taskList.map((task, index) => {
-          const completed = task.isComplete ? "line-through" : "";
-          const style = { textDecorationLine: completed};
+          const taskListProps = {
+            task,
+            index,
+            taskList,
+            setTaskList,
+            "key": index,
+          }
 
-          return (
-            <div className="taskList">
-              <div onClick={() => toggleCompletionHandler(task, setTaskList)} style={style} className="text" key={Date.now()}> {(index+1) + ". " + task.title} </div>
-              <button >delete</button>
-            </div>
-          )
+          if (currentlyShowing === "All") {
+            return <Task {...taskListProps}/>
+          }
 
-          if (currDisplaying === "Incomplete" && !task.isComplete) {
-            
-          } else if (currDisplaying === "Completed" && task.isComplete) {
+          if (currentlyShowing === "Incomplete" && !task.isComplete) {
+            return <Task {...taskListProps} />
+          }
 
-          } else {
-
+          if (currentlyShowing === "Completed" && task.isComplete) {
+            return <Task {...taskListProps} />
           }
         })}
       </div>
 
-      <Display setCurrDisplaying={setCurrDisplaying} currDisplaying={currDisplaying}/>
-
+      <Display setCurrentlyShowing={setCurrentlyShowing} currentlyShowing={currentlyShowing}/>
     </div>
   );
 }
@@ -79,9 +58,11 @@ export default App;
 
 
 // Work to be done:
-// 1. delete button function
-// 2. delete button layout
-// 3. set currDisplaying 
-// 4. display all/incomplete/completed
+// 1. delete button function [done]
+// 2. delete button layout  [done]
+// 3. set currentlyShowing [done]
+// 4. display all/incomplete/completed  [done]
 // 5. display buttons background color changed if clicked
-// 6. firebase
+// 6. if userInput is nothing or null, alert
+// 6. simplify code + give correct name [done]
+// 7. firebase

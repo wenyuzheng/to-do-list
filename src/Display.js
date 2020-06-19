@@ -1,33 +1,26 @@
-import React, { useState }from 'react';
+import React from 'react';
 import './Display.css';
 
 const Display = (props) => {
 
-    // const displayAllHandler = () => {
-    //     props.setCurrDisplaying("All");
-    //     console.log(props.c)
-    // }
+    const displayButtonList = [
+        {
+            id: "All",
+            isClicked: true
+        },
+        {
+            id: "Incomplete",
+            isClicked: false
+        },
+        {
+            id: "Completed",
+            isClicked: false
+        }
+    ];
 
-    // const displayIncompleteHandler = () => {
-    //     props.setCurrDisplaying("Incomplete");
-    //     console.log(props.c)
-    // }
-
-    // const displayCompletedHandler = () => {
-    //     props.setCurrDisplaying("Completed");
-    //     console.log(props.c)
-    // }
-
-    const [clicked, setClicked] = useState(false);
-
-    const displayHandler = (name) => {
-        props.setCurrDisplaying(name);
-        setClicked(true);
-        console.log(props.currDisplaying)
+    const displayHandler = (id) => {
+        props.setCurrentlyShowing(id);
     }
-
-    // const backgroundColor = clicked ? "fae29c" : "white";
-    // const style = { backgroundColor };
 
     return (
         <div className="outerDisplayDiv">
@@ -35,16 +28,15 @@ const Display = (props) => {
                 <div>
                     <p> Display:</p>
                 </div>
-                <div>
-                    <button onClick={() => displayHandler("All")} >All</button>
-                </div>
-                <div>
-                    <button onClick={() => displayHandler("Incomplete")} >Incomplete</button>
-                </div>
-                <div>
-                    <button onClick={() => displayHandler("Completed")} >Completed</button>
-                </div>
             </div>
+
+            {displayButtonList.map((button) => {
+
+                const backgroundColor = button.isClicked ? "#fae29c" : "white";
+                const style = { backgroundColor };
+
+                return <button onClick={() => displayHandler(button.id)} style={style} key={button.id}>{button.id}</button>
+            })}
         </div>
     )
 }

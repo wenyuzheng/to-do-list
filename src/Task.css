@@ -1,8 +1,25 @@
-.task {
-    display: flex;
-    margin: 0 300px;
+.taskList {
+  text-align: left;
 }
 
-.checkbox {
-    margin: auto 10px;
+.text {
+  border: 1px lightgrey solid;
+  font-size: 20px;
+  padding: 5px 35px;
+}
+
+.text:hover {
+  background-color: #fae29e;
+}
+
+.delete {
+  float: right;
+  margin: 0;
+  background-color: #ff6347;
+  color: white;
+}
+
+.delete:hover {
+  background-color: #cc397b;
+  color: white;
 }

@@ -3,29 +3,3 @@
   width: 600px;
   margin: auto;
 }
-
-button {
-  margin: 15px 10px;
-  font-size: 15px;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #fae29e;
-  color: black;
-}
-
-.taskList {
-  text-align: left;
-  /* display: inline-flex; */
-}
-
-.text {
-  border: 1px lightgrey solid;
-  font-size: 20px;
-  padding: 5px 30px;
-}
-
-.text:hover {
-  background-color: #fae29e;
-}
