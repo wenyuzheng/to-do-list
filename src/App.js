@@ -1,25 +1,23 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './Header';
 import Task from './Task';
 import Display from './Display';
+import firebase from './firebase';
 
 const App = () => {
 
-  let tasks = [
-    {
-      title: "Do work",
-      isComplete: false
-    },
-    {
-      title: "Hiiiiiiiiiiiiiiiiiiiii  kkkkkkkk kkkk",
-      isComplete: true
-    }
-  ]
-
-  const [taskList, setTaskList] = useState(tasks);
+  const [taskList, setTaskList] = useState([]);
   const [userInput, setUserInput] = useState(null);
   const [currentlyShowing, setCurrentlyShowing] = useState("All");
+
+  useEffect(() => {
+    let ref = firebase.database().ref("/toDoList")
+    ref.once("value", (data) => {
+      const newData = data.val();
+      setTaskList(newData);
+    })
+  }, [])
 
   return (
     <div className="App">
@@ -36,7 +34,7 @@ const App = () => {
           }
 
           if (currentlyShowing === "All") {
-            return <Task {...taskListProps}/>
+            return <Task {...taskListProps} />
           }
 
           if (currentlyShowing === "Incomplete" && !task.isComplete) {
@@ -58,11 +56,8 @@ export default App;
 
 
 // Work to be done:
-// 1. delete button function [done]
-// 2. delete button layout  [done]
-// 3. set currentlyShowing [done]
-// 4. display all/incomplete/completed  [done]
-// 5. display buttons background color changed if clicked
-// 6. if userInput is nothing or null, alert
-// 6. simplify code + give correct name [done]
-// 7. firebase
+// 1. display buttons background color changed if clicked + hovering
+// 2. if userInput is nothing or null, alert
+// 3. firebase: 1) update list while delete and add [done]
+//              2) load list while running server [done]
+//              3) loading icon when loading

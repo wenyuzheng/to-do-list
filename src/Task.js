@@ -1,5 +1,6 @@
 import React from "react";
 import './Task.css';
+import firebase from './firebase';
 
 const Task = (props) => {
 
@@ -7,6 +8,7 @@ const Task = (props) => {
         let newTaskList = [...props.taskList];
         newTaskList.splice(taskIndex, 1);
         props.setTaskList(newTaskList);
+        firebase.database().ref("/toDoList").set(newTaskList);
     }
 
     const toggleCompletionHandler = (task, setTaskList) => {

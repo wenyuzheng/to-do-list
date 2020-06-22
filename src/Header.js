@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import firebase from './firebase';
 
 const Header = (props) => {
 
@@ -11,6 +12,7 @@ const Header = (props) => {
         let newTaskList = [...props.taskList, task];
         props.setTaskList(newTaskList);
         props.setUserInput("");
+        firebase.database().ref("/toDoList").set(newTaskList);
     }
 
     return (
