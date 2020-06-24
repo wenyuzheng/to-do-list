@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Display.css';
 
 const Display = (props) => {
@@ -18,8 +18,15 @@ const Display = (props) => {
         }
     ];
 
+    const [displayButtons, setDisplayButtons] = useState(displayButtonList)
+
     const displayHandler = (id) => {
         props.setCurrentlyShowing(id);
+
+        let newDisplayButtonList = displayButtonList.map(displayButton =>
+            displayButton.id === id ? { ...displayButton, isClicked: true } : { ...displayButton, isClicked: false }
+        );
+        setDisplayButtons(newDisplayButtonList);
     }
 
     return (
@@ -30,12 +37,11 @@ const Display = (props) => {
                 </div>
             </div>
 
-            {displayButtonList.map((button) => {
-
+            {displayButtons.map((button) => {
                 const backgroundColor = button.isClicked ? "#fae29c" : "white";
                 const style = { backgroundColor };
 
-                return <button onClick={() => displayHandler(button.id)} style={style} key={button.id}>{button.id}</button>
+                return <button onClick={() => displayHandler(button.id)} className="button" style={style} key={button.id}>{button.id}</button>
             })}
         </div>
     )

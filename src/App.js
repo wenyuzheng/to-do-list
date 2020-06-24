@@ -56,8 +56,6 @@ export default App;
 
 
 // Work to be done:
-// 1. display buttons background color changed if clicked + hovering
-// 2. if userInput is nothing or null, alert
-// 3. firebase: 1) update list while delete and add [done]
-//              2) load list while running server [done]
-//              3) loading icon when loading
+// 1. display buttons hovering
+// 2. if tasks have the same content, when toggle complete on one, toggles on all (use id?)
+// 3. firebase: loading icon when loading
