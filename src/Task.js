@@ -11,21 +11,10 @@ const Task = (props) => {
         firebase.database().ref("/toDoList").set(newTaskList);
     }
 
-    const toggleCompletionHandler = (task, setTaskList) => {
-        setTaskList((currTaskList) => {
-            let newTaskList = [];
-            currTaskList.forEach((currTask) => {
-                let newTask = {};
-                newTask.title = currTask.title;
-                if (task.title === currTask.title) {
-                    newTask.isComplete = !task.isComplete;
-                } else {
-                    newTask.isComplete = currTask.isComplete;
-                }
-                newTaskList.push(newTask);
-            });
-            return newTaskList;
-        });
+    const toggleCompletionHandler = (index) => {
+        const temporaryTaskList = [...props.taskList];
+        temporaryTaskList[index].isComplete = !temporaryTaskList[index].isComplete;
+        props.setTaskList(temporaryTaskList);
     }
 
     const completed = props.task.isComplete ? "line-through" : "";
@@ -33,7 +22,7 @@ const Task = (props) => {
 
     return (
         <div className="taskList">
-            <div onClick={() => toggleCompletionHandler(props.task, props.setTaskList)} style={style} className="text" > {props.task.title}
+            <div onClick={() => toggleCompletionHandler(props.index)} style={style} className="text" > {props.task.title}
                 <button onClick={() => deleteTasksHandler(props.index)} className="delete">delete</button>
             </div>
         </div>
