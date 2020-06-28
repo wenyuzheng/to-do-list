@@ -12,7 +12,7 @@ const App = () => {
   const [currentlyShowing, setCurrentlyShowing] = useState("All");
 
   useEffect(() => {
-    let ref = firebase.database().ref("/toDoList")
+    let ref = firebase.database().ref("/toDoList");
     ref.once("value", (data) => {
       const newData = data.val();
       setTaskList(newData);
@@ -23,6 +23,7 @@ const App = () => {
     <div className="App">
       <Header taskList={taskList} setTaskList={setTaskList} userInput={userInput} setUserInput={setUserInput}/>
     
+      {taskList === null ? null :
       <div>
         {taskList.map((task, index) => {
           const taskListProps = {
@@ -45,7 +46,7 @@ const App = () => {
             return <Task {...taskListProps} />
           }
         })}
-      </div>
+      </div>}
 
       <Display setCurrentlyShowing={setCurrentlyShowing} currentlyShowing={currentlyShowing}/>
     </div>
@@ -56,6 +57,10 @@ export default App;
 
 
 // Work to be done:
-// 1. display buttons hovering
-// 2. if tasks have the same content, when toggle complete on one, toggles on all (use id?) [done]
-// 3. firebase: loading icon when loading
+// 1. display buttons hovering (try styled components)
+// 2. firebase: loading icon when loading
+// 3. firebase: save complete/incomplete [done]
+// 4. edit button [done]
+// 5. css
+// 6. can't map empty database [done]
+// 7. delete the one above (A) -> edit the one below (B) -> change B to value of A (index?)

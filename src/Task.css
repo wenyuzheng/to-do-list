@@ -1,9 +1,17 @@
 .taskList {
+  display: grid;
+  grid-template-columns: auto 45px 60px;
+  gap: 0 5px;
   text-align: left;
+  border: 1px lightgrey solid;
+}
+
+.editInput {
+  font-size: 15px;
+  padding: 5px 10px;
 }
 
 .text {
-  border: 1px lightgrey solid;
   font-size: 20px;
   padding: 5px 35px;
 }
@@ -12,14 +20,16 @@
   background-color: #fae29e;
 }
 
-.delete {
+.taskButtons {
   float: right;
   margin: 0;
-  background-color: #ff6347;
+  background-color: #4682b4;
   color: white;
+  height: 25px;
+  place-self: center;
 }
 
-.delete:hover {
+.taskButtons:hover {
   background-color: #cc397b;
   color: white;
 }

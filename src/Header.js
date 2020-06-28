@@ -10,9 +10,15 @@ const Header = (props) => {
         } else {
             const task = {
                 title: props.userInput,
-                isComplete: false
+                isComplete: false,
+                id: Date()
             }
-            let newTaskList = [...props.taskList, task];
+            let newTaskList = [];
+            if (props.taskList === null) {
+                newTaskList = [task];
+            } else {
+                newTaskList = [...props.taskList, task];
+            }
             props.setTaskList(newTaskList);
             props.setUserInput("");
             firebase.database().ref("/toDoList").set(newTaskList);
