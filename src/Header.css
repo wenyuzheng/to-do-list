@@ -11,6 +11,7 @@ h1 {
     border-radius: 0%;
     height: 27px;
     background-color: #fae29c;
+    border: 0px;
 }
 
 .addButton:hover {
