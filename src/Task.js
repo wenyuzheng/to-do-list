@@ -8,25 +8,33 @@ const Task = (props) => {
     const [editUserInput, setEditUserInput] = useState(props.task.title);
 
     const deleteTasksHandler = (taskIndex) => {
-        let newTaskList = [...props.taskList];
-        newTaskList.splice(taskIndex, 1);
+        let newTaskList = { ...props.taskList };
+        delete newTaskList[taskIndex];
         props.setTaskList(newTaskList);
         firebase.database().ref("/toDoList").set(newTaskList);
     }
 
     const toggleCompletionHandler = (index) => {
-        const temporaryTaskList = [...props.taskList];
-        temporaryTaskList[index].isComplete = !temporaryTaskList[index].isComplete;
+        const temporaryTaskList = { ...props.taskList };
+        const task = temporaryTaskList[index];
+        task.isComplete = !task.isComplete;
         props.setTaskList(temporaryTaskList);
-        firebase.database().ref("/toDoList").set(temporaryTaskList);
+        firebase.database().ref(`/toDoList/${index}`).set(task);
     }
 
     const saveEditHandler = (index) => {
-        const tempTaskList = [...props.taskList];
+        const tempTaskList = { ...props.taskList };
         tempTaskList[index].title = editUserInput;
         props.setTaskList(tempTaskList);
         setEditing(false);
-        firebase.database().ref("/toDoList").set(tempTaskList);
+        firebase.database().ref('/toDoList').set(tempTaskList);
+
+        // const tempTaskList = { ...props.taskList };
+        // const task = tempTaskList[index];
+        // task.title = editUserInput;
+        // props.setTaskList(tempTaskList);
+        // setEditing(false);
+        // firebase.database().ref(`/toDoList/${index}`).set(task);
     }
 
     const textDecorationLine = props.task.isComplete ? "line-through" : "";
@@ -38,7 +46,8 @@ const Task = (props) => {
         <div className="taskList">
             {editing ? <input value={editUserInput} onChange={(e) => setEditUserInput(e.target.value)} style={editStyle} className="editInput"/> :
                 <span onClick={() => toggleCompletionHandler(props.index)} style={style} className="text"> {props.task.title}</span>}
-            {editing ? <button onClick={() => saveEditHandler(props.index)} className="taskButtons" style={editStyle}>save</button> : 
+            {editing ? 
+            <button onClick={() => saveEditHandler(props.index)} className="taskButtons" style={editStyle} >save</button> : 
                 <button onClick={() => setEditing(true)} className="taskButtons">edit</button>}
             <button onClick={() => deleteTasksHandler(props.index)} className="taskButtons">delete</button>
         </div>

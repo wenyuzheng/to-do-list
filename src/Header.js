@@ -10,18 +10,26 @@ const Header = (props) => {
         } else {
             const task = {
                 title: props.userInput,
-                isComplete: false,
-                id: Date()
+                isComplete: false
             }
-            let newTaskList = [];
-            if (props.taskList === null) {
-                newTaskList = [task];
-            } else {
-                newTaskList = [...props.taskList, task];
-            }
+
+            // let newTaskList = {};
+            // if (props.taskList === null) {
+            //     newTaskList = {task};
+            // } else {
+            //     newTaskList = {...props.taskList, task};
+            // }
+            console.log(props.taskList)
+            let newTaskList = { ...props.taskList, task };
+
+            console.log(newTaskList)
+
             props.setTaskList(newTaskList);
             props.setUserInput("");
-            firebase.database().ref("/toDoList").set(newTaskList);
+
+            let currTime = new Date();
+            let timeId = currTime.getTime();
+            firebase.database().ref(`/toDoList/${timeId}`).set(task);
         }
     }
 

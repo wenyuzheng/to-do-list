@@ -8,7 +8,7 @@ import firebase from './firebase';
 const App = () => {
 
   const [taskList, setTaskList] = useState([]);
-  const [userInput, setUserInput] = useState(null);
+  const [userInput, setUserInput] = useState("");
   const [currentlyShowing, setCurrentlyShowing] = useState("All");
 
   useEffect(() => {
@@ -25,7 +25,8 @@ const App = () => {
     
       {taskList === null ? null :
       <div>
-        {taskList.map((task, index) => {
+          {Object.entries(taskList).map((e) => {
+          const [index, task] = e;
           const taskListProps = {
             task,
             index,
@@ -62,5 +63,5 @@ export default App;
 // 3. firebase: save complete/incomplete [done]
 // 4. edit button [done]
 // 5. css
-// 6. can't map empty database [done]
-// 7. delete the one above (A) -> edit the one below (B) -> change B to value of A (index?)
+
+// in db list but not shown on taskList
