@@ -7,47 +7,36 @@ import firebase from './firebase';
 
 const App = () => {
 
-  const [taskList, setTaskList] = useState([]);
-  const [userInput, setUserInput] = useState("");
+  const [taskList, setTaskList] = useState({});
   const [currentlyShowing, setCurrentlyShowing] = useState("All");
 
   useEffect(() => {
     let ref = firebase.database().ref("/toDoList");
     ref.once("value", (data) => {
-      const newData = data.val();
+      let newData = data.val();
+      if (newData === null) newData = {};
       setTaskList(newData);
     })
   }, [])
 
   return (
     <div className="App">
-      <Header taskList={taskList} setTaskList={setTaskList} userInput={userInput} setUserInput={setUserInput}/>
+      <Header taskList={taskList} setTaskList={setTaskList}/>
     
-      {taskList === null ? null :
       <div>
-          {Object.entries(taskList).map((e) => {
-          const [index, task] = e;
+        {Object.entries(taskList).map(([index, task]) => {
           const taskListProps = {
             task,
             index,
             taskList,
             setTaskList,
-            "key": index,
+            key: index,
           }
 
-          if (currentlyShowing === "All") {
-            return <Task {...taskListProps} />
-          }
-
-          if (currentlyShowing === "Incomplete" && !task.isComplete) {
-            return <Task {...taskListProps} />
-          }
-
-          if (currentlyShowing === "Completed" && task.isComplete) {
-            return <Task {...taskListProps} />
-          }
+          const shouldDisplay = (currentlyShowing === "All") || (currentlyShowing === "Incomplete" && !task.isComplete) || (currentlyShowing === "Completed" && task.isComplete);
+          return shouldDisplay ? <Task {...taskListProps} /> : null
         })}
-      </div>}
+      </div>
 
       <Display setCurrentlyShowing={setCurrentlyShowing} currentlyShowing={currentlyShowing}/>
     </div>
@@ -58,10 +47,5 @@ export default App;
 
 
 // Work to be done:
-// 1. display buttons hovering (try styled components)
-// 2. firebase: loading icon when loading
-// 3. firebase: save complete/incomplete [done]
-// 4. edit button [done]
+// 1. 
 // 5. css
-
-// in db list but not shown on taskList

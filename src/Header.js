@@ -1,34 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import firebase from './firebase';
 
 const Header = (props) => {
 
+    const [userInput, setUserInput] = useState("");
+
     const addTasksHandler = () => {
-        if (props.userInput === "" || props.userInput === null) {
+        if (userInput === "" || userInput === null) {
             alert("Please enter your task!")
         } else {
             const task = {
-                title: props.userInput,
+                title: userInput,
                 isComplete: false
             }
 
-            // let newTaskList = {};
-            // if (props.taskList === null) {
-            //     newTaskList = {task};
-            // } else {
-            //     newTaskList = {...props.taskList, task};
-            // }
-            console.log(props.taskList)
-            let newTaskList = { ...props.taskList, task };
-
-            console.log(newTaskList)
-
-            props.setTaskList(newTaskList);
-            props.setUserInput("");
-
             let currTime = new Date();
             let timeId = currTime.getTime();
+
+            let newTaskList = { ...props.taskList, [timeId]: task};
+            props.setTaskList(newTaskList);
+            setUserInput("");
             firebase.database().ref(`/toDoList/${timeId}`).set(task);
         }
     }
@@ -39,11 +31,11 @@ const Header = (props) => {
 
             <div>
                 <input 
-                    value={props.userInput}
+                    value={userInput}
                     type="text" 
                     id="userInput" 
                     placeholder="Enter task" 
-                    onChange={(e) => props.setUserInput(e.target.value)}
+                    onChange={(e) => setUserInput(e.target.value)}
                     onKeyPress={event => {
                         if (event.key === 'Enter') {
                             addTasksHandler();

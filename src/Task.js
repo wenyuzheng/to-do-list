@@ -11,7 +11,7 @@ const Task = (props) => {
         let newTaskList = { ...props.taskList };
         delete newTaskList[taskIndex];
         props.setTaskList(newTaskList);
-        firebase.database().ref("/toDoList").set(newTaskList);
+        firebase.database().ref(`/toDoList/${taskIndex}`).remove();
     }
 
     const toggleCompletionHandler = (index) => {
@@ -24,17 +24,11 @@ const Task = (props) => {
 
     const saveEditHandler = (index) => {
         const tempTaskList = { ...props.taskList };
-        tempTaskList[index].title = editUserInput;
+        const task = tempTaskList[index];
+        task.title = editUserInput;
         props.setTaskList(tempTaskList);
         setEditing(false);
-        firebase.database().ref('/toDoList').set(tempTaskList);
-
-        // const tempTaskList = { ...props.taskList };
-        // const task = tempTaskList[index];
-        // task.title = editUserInput;
-        // props.setTaskList(tempTaskList);
-        // setEditing(false);
-        // firebase.database().ref(`/toDoList/${index}`).set(task);
+        firebase.database().ref(`/toDoList/${index}`).set(task);
     }
 
     const textDecorationLine = props.task.isComplete ? "line-through" : "";
@@ -47,7 +41,7 @@ const Task = (props) => {
             {editing ? <input value={editUserInput} onChange={(e) => setEditUserInput(e.target.value)} style={editStyle} className="editInput"/> :
                 <span onClick={() => toggleCompletionHandler(props.index)} style={style} className="text"> {props.task.title}</span>}
             {editing ? 
-            <button onClick={() => saveEditHandler(props.index)} className="taskButtons" style={editStyle} >save</button> : 
+                <button onClick={() => saveEditHandler(props.index)} className="taskButtons" style={editStyle}>save</button> : 
                 <button onClick={() => setEditing(true)} className="taskButtons">edit</button>}
             <button onClick={() => deleteTasksHandler(props.index)} className="taskButtons">delete</button>
         </div>
